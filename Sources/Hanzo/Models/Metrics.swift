@@ -10,26 +10,26 @@ import Foundation
 public struct Metrics: Sendable, Codable, ParameterConvertible, Hashable {
 
     /** unix seconds, server-stamped */
-    public var at: Int?
+    public var at: Int64?
     /** 0..1 aggregate utilization */
     public var gpuUtil: Double?
     /** Load1 is the machine's own one-minute load average — a count of runnable and uninterruptible tasks, NOT a percentage and NOT already divided by core count, so it is read against Spec.CPUs: 8.0 is idle on 16 cores and swamped on 4. Coerced finite and non-negative on write, so 0 means either genuinely idle or nothing reported. */
     public var load1: Double?
-    /** Load5 is the same figure averaged over five minutes. */
-    public var load5: Double?
     /** Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking. */
     public var load15: Double?
+    /** Load5 is the same figure averaged over five minutes. */
+    public var load5: Double?
     /** bytes */
-    public var memFree: Int?
+    public var memFree: Int64?
     /** bytes */
-    public var memUsed: Int?
+    public var memUsed: Int64?
 
-    public init(at: Int? = nil, gpuUtil: Double? = nil, load1: Double? = nil, load5: Double? = nil, load15: Double? = nil, memFree: Int? = nil, memUsed: Int? = nil) {
+    public init(at: Int64? = nil, gpuUtil: Double? = nil, load1: Double? = nil, load15: Double? = nil, load5: Double? = nil, memFree: Int64? = nil, memUsed: Int64? = nil) {
         self.at = at
         self.gpuUtil = gpuUtil
         self.load1 = load1
-        self.load5 = load5
         self.load15 = load15
+        self.load5 = load5
         self.memFree = memFree
         self.memUsed = memUsed
     }
@@ -38,8 +38,8 @@ public struct Metrics: Sendable, Codable, ParameterConvertible, Hashable {
         case at
         case gpuUtil
         case load1
-        case load5
         case load15
+        case load5
         case memFree
         case memUsed
     }
@@ -51,8 +51,8 @@ public struct Metrics: Sendable, Codable, ParameterConvertible, Hashable {
         try container.encodeIfPresent(at, forKey: .at)
         try container.encodeIfPresent(gpuUtil, forKey: .gpuUtil)
         try container.encodeIfPresent(load1, forKey: .load1)
-        try container.encodeIfPresent(load5, forKey: .load5)
         try container.encodeIfPresent(load15, forKey: .load15)
+        try container.encodeIfPresent(load5, forKey: .load5)
         try container.encodeIfPresent(memFree, forKey: .memFree)
         try container.encodeIfPresent(memUsed, forKey: .memUsed)
     }

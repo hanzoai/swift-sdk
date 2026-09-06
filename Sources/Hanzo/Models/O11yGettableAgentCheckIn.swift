@@ -11,34 +11,34 @@ public struct O11yGettableAgentCheckIn: Sendable, Codable, ParameterConvertible,
 
     /** Older fields for backward compatibility with existing AWS agents */
     public var accountId: String?
-    public var cloudAccountId: String?
     public var cloudIntegrationId: String?
-    public var integrationConfigLegacy: O11yIntegrationConfig?
+    public var cloudAccountId: String?
     public var integrationConfig: O11yProviderIntegrationConfig?
+    public var integrationConfigLegacy: O11yIntegrationConfig?
     public var providerAccountId: String?
-    public var removedAtLegacy: Date?
     public var removedAt: Date?
+    public var removedAtLegacy: Date?
 
-    public init(accountId: String? = nil, cloudAccountId: String? = nil, cloudIntegrationId: String? = nil, integrationConfigLegacy: O11yIntegrationConfig? = nil, integrationConfig: O11yProviderIntegrationConfig? = nil, providerAccountId: String? = nil, removedAtLegacy: Date? = nil, removedAt: Date? = nil) {
+    public init(accountId: String? = nil, cloudIntegrationId: String? = nil, cloudAccountId: String? = nil, integrationConfig: O11yProviderIntegrationConfig? = nil, integrationConfigLegacy: O11yIntegrationConfig? = nil, providerAccountId: String? = nil, removedAt: Date? = nil, removedAtLegacy: Date? = nil) {
         self.accountId = accountId
-        self.cloudAccountId = cloudAccountId
         self.cloudIntegrationId = cloudIntegrationId
-        self.integrationConfigLegacy = integrationConfigLegacy
+        self.cloudAccountId = cloudAccountId
         self.integrationConfig = integrationConfig
+        self.integrationConfigLegacy = integrationConfigLegacy
         self.providerAccountId = providerAccountId
-        self.removedAtLegacy = removedAtLegacy
         self.removedAt = removedAt
+        self.removedAtLegacy = removedAtLegacy
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case accountId = "account_id"
-        case cloudAccountId = "cloud_account_id"
         case cloudIntegrationId
-        case integrationConfigLegacy = "integration_config"
+        case cloudAccountId = "cloud_account_id"
         case integrationConfig
+        case integrationConfigLegacy = "integration_config"
         case providerAccountId
-        case removedAtLegacy = "removed_at"
         case removedAt
+        case removedAtLegacy = "removed_at"
     }
 
     // Encodable protocol methods
@@ -46,13 +46,13 @@ public struct O11yGettableAgentCheckIn: Sendable, Codable, ParameterConvertible,
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(accountId, forKey: .accountId)
-        try container.encodeIfPresent(cloudAccountId, forKey: .cloudAccountId)
         try container.encodeIfPresent(cloudIntegrationId, forKey: .cloudIntegrationId)
-        try container.encodeIfPresent(integrationConfigLegacy, forKey: .integrationConfigLegacy)
+        try container.encodeIfPresent(cloudAccountId, forKey: .cloudAccountId)
         try container.encodeIfPresent(integrationConfig, forKey: .integrationConfig)
+        try container.encodeIfPresent(integrationConfigLegacy, forKey: .integrationConfigLegacy)
         try container.encodeIfPresent(providerAccountId, forKey: .providerAccountId)
-        try container.encodeIfPresent(removedAtLegacy, forKey: .removedAtLegacy)
         try container.encodeIfPresent(removedAt, forKey: .removedAt)
+        try container.encodeIfPresent(removedAtLegacy, forKey: .removedAtLegacy)
     }
 }
 

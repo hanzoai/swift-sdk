@@ -9,45 +9,27 @@ import Foundation
 
 public struct Verdict: Sendable, Codable, ParameterConvertible, Hashable {
 
-    public var builds: Int?
-    public var commit: String?
-    public var fired: Bool?
-    public var org: String?
-    public var reason: String?
-    public var ref: String?
-    public var repo: String?
+    /** Flags are the findings behind the severity, in detection order: floating-declared, floating-running, stale, un-rolled, then the release-artifact ones. Always present — `[]` for a row that runs what it declares, never null. */
+    public var flags: [DriftFlag]?
+    /** Severity is the roll-up over Flags — red if any flag is red, else yellow if any is yellow, else ok. It is the column a board sorts and filters on, and \"ok\" is exactly what no flags means. */
+    public var severity: String?
 
-    public init(builds: Int? = nil, commit: String? = nil, fired: Bool? = nil, org: String? = nil, reason: String? = nil, ref: String? = nil, repo: String? = nil) {
-        self.builds = builds
-        self.commit = commit
-        self.fired = fired
-        self.org = org
-        self.reason = reason
-        self.ref = ref
-        self.repo = repo
+    public init(flags: [DriftFlag]? = nil, severity: String? = nil) {
+        self.flags = flags
+        self.severity = severity
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case builds
-        case commit
-        case fired
-        case org
-        case reason
-        case ref
-        case repo
+        case flags
+        case severity
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(builds, forKey: .builds)
-        try container.encodeIfPresent(commit, forKey: .commit)
-        try container.encodeIfPresent(fired, forKey: .fired)
-        try container.encodeIfPresent(org, forKey: .org)
-        try container.encodeIfPresent(reason, forKey: .reason)
-        try container.encodeIfPresent(ref, forKey: .ref)
-        try container.encodeIfPresent(repo, forKey: .repo)
+        try container.encodeIfPresent(flags, forKey: .flags)
+        try container.encodeIfPresent(severity, forKey: .severity)
     }
 }
 

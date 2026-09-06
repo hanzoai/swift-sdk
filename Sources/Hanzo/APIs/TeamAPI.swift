@@ -308,45 +308,6 @@ open class TeamAPI {
     }
 
     /**
-     Returns the caller org's bot members — the org's agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
-     
-     - parameter apiConfiguration: The configuration for the http request.
-     - returns: BotRoster
-     */
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func getTeamBots(apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) async throws(ErrorResponse) -> BotRoster {
-        return try await getTeamBotsWithRequestBuilder(apiConfiguration: apiConfiguration).execute().body
-    }
-
-    /**
-     Returns the caller org's bot members — the org's agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
-     - GET /v1/team/bots
-     - Returns the caller org's bot members — the org's agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by. An agents subsystem that is not mounted answers an empty list, never an error.
-     - Bearer Token:
-       - type: http
-       - name: bearer
-     - parameter apiConfiguration: The configuration for the http request.
-     - returns: RequestBuilder<BotRoster> 
-     */
-    open class func getTeamBotsWithRequestBuilder(apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) -> RequestBuilder<BotRoster> {
-        let localVariablePath = "/v1/team/bots"
-        let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableParameters: [String: any Sendable]? = nil
-
-        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
-
-        let localVariableNillableHeaders: [String: (any Sendable)?] = [
-            :
-        ]
-
-        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
-
-        let localVariableRequestBuilder: RequestBuilder<BotRoster>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
-
-        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true, apiConfiguration: apiConfiguration)
-    }
-
-    /**
      Open the live collaborative-editing socket
      
      - parameter apiConfiguration: The configuration for the http request.
@@ -430,6 +391,56 @@ open class TeamAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<URL>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Lists the rooms orgs have published, across every org.
+     
+     - parameter q: (query) Q matches a room&#39;s name or its topic. (optional)
+     - parameter org: (query) Org narrows to one org&#39;s published rooms. (optional)
+     - parameter limit: (query) Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: PublicRooms
+     */
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getTeamPublic(q: String? = nil, org: String? = nil, limit: Int64? = nil, apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) async throws(ErrorResponse) -> PublicRooms {
+        return try await getTeamPublicWithRequestBuilder(q: q, org: org, limit: limit, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Lists the rooms orgs have published, across every org.
+     - GET /v1/team/public
+     - Lists the rooms orgs have published, across every org.  It is NOT part of GET /rooms, and the separation is the point: that address answers the CALLER'S rooms, so folding these in would put strangers' channels in somebody's own sidebar.  It reads the directory and never a tenant's store. Every field it can answer with is one an org published by making a room public, so there is nothing here to scope by org — a directory only its own org can read is not a directory. An authenticated principal is still required, because an anonymous crawler is not who this is for.
+     - Bearer Token:
+       - type: http
+       - name: bearer
+     - parameter q: (query) Q matches a room&#39;s name or its topic. (optional)
+     - parameter org: (query) Org narrows to one org&#39;s published rooms. (optional)
+     - parameter limit: (query) Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<PublicRooms> 
+     */
+    open class func getTeamPublicWithRequestBuilder(q: String? = nil, org: String? = nil, limit: Int64? = nil, apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) -> RequestBuilder<PublicRooms> {
+        let localVariablePath = "/v1/team/public"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "q": (wrappedValue: q?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "org": (wrappedValue: org?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<PublicRooms>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true, apiConfiguration: apiConfiguration)
     }
@@ -645,45 +656,6 @@ open class TeamAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<Void>.Type = apiConfiguration.requestBuilderFactory.getNonDecodableBuilder()
-
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true, apiConfiguration: apiConfiguration)
-    }
-
-    /**
-     SyncBots re-projects the caller org's agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
-     
-     - parameter apiConfiguration: The configuration for the http request.
-     - returns: BotSync
-     */
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    open class func postTeamBotsSync(apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) async throws(ErrorResponse) -> BotSync {
-        return try await postTeamBotsSyncWithRequestBuilder(apiConfiguration: apiConfiguration).execute().body
-    }
-
-    /**
-     SyncBots re-projects the caller org's agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
-     - POST /v1/team/bots/sync
-     - SyncBots re-projects the caller org's agents as space members into EVERY space of the org, and removes the ones whose agent is gone. It is idempotent, and admin only: mutating a space's roster requires the gateway-minted admin flag, which a client can never forge. It answers how many roster entries the reconcile touched.
-     - Bearer Token:
-       - type: http
-       - name: bearer
-     - parameter apiConfiguration: The configuration for the http request.
-     - returns: RequestBuilder<BotSync> 
-     */
-    open class func postTeamBotsSyncWithRequestBuilder(apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) -> RequestBuilder<BotSync> {
-        let localVariablePath = "/v1/team/bots/sync"
-        let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableParameters: [String: any Sendable]? = nil
-
-        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
-
-        let localVariableNillableHeaders: [String: (any Sendable)?] = [
-            :
-        ]
-
-        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
-
-        let localVariableRequestBuilder: RequestBuilder<BotSync>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true, apiConfiguration: apiConfiguration)
     }

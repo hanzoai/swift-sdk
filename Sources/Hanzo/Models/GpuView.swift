@@ -13,7 +13,7 @@ public struct GpuView: Sendable, Codable, ParameterConvertible, Hashable {
     public var id: String?
     /** Location is where the card physically sits, which for every source today is the same value Region carries — the console renders it in its own column. */
     public var location: String?
-    /** Machine is the id of the machine holding this card, addressable as-is on /v1/visor/machines/:id. */
+    /** Machine is the id of the machine holding this card, addressable as-is on /v1/compute/machines/:id. */
     public var machine: String?
     /** Memory is the card's VRAM as its own tooling reported it (\"122880 MiB\") — a display string in the reporter's units, not a byte count. BYO cards carry it (nvidia-smi); Visor's machine object states no VRAM, so a rented card leaves it empty and the console renders \"—\" rather than a fabricated 0. */
     public var memory: String?

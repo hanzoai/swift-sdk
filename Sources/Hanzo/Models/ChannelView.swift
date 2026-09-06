@@ -19,14 +19,14 @@ public struct ChannelView: Sendable, Codable, ParameterConvertible, Hashable {
     public var connected: Bool?
     /** DMPolicy is how this org admits direct messages here: \"pairing\", \"allowlist\" or \"open\", defaulting to \"pairing\" when the org has never set one. */
     public var dmPolicy: String?
-    /** GroupPolicy is how this org admits group and thread rooms here: \"open\", \"allowlist\" or \"disabled\", defaulting to \"open\". Both policy fields come back EMPTY — rather than the listing failing — when the policy cannot be read; GET /v1/channels/allowlist carries the same two with the entries they consult. */
+    /** GroupPolicy is how this org admits group and thread rooms here: \"open\", \"allowlist\" or \"disabled\", defaulting to \"open\". Both policy fields come back EMPTY — rather than the listing failing — when the policy cannot be read; GET /v1/channel/allowlist carries the same two with the entries they consult. */
     public var groupPolicy: String?
     /** ID is the fixed transport identifier — discord, slack, teams, telegram or whatsapp — and the value every route on this surface names a channel by, including the `:channel` segment of the send path. The listing is always in that order. */
     public var id: String?
-    /** PendingPairing counts the org's UNEXPIRED pairing requests on this channel: exactly the rows GET /v1/channels/pairing returns for it, one per person waiting on an admin. It never exceeds three — the pending cap per (org, channel) — and expired requests are not counted. */
-    public var pendingPairing: Int?
+    /** PendingPairing counts the org's UNEXPIRED pairing requests on this channel: exactly the rows GET /v1/channel/pairing returns for it, one per person waiting on an admin. It never exceeds three — the pending cap per (org, channel) — and expired requests are not counted. */
+    public var pendingPairing: Int64?
 
-    public init(account: String? = nil, accountLabel: String? = nil, capabilities: Capabilities? = nil, connected: Bool? = nil, dmPolicy: String? = nil, groupPolicy: String? = nil, id: String? = nil, pendingPairing: Int? = nil) {
+    public init(account: String? = nil, accountLabel: String? = nil, capabilities: Capabilities? = nil, connected: Bool? = nil, dmPolicy: String? = nil, groupPolicy: String? = nil, id: String? = nil, pendingPairing: Int64? = nil) {
         self.account = account
         self.accountLabel = accountLabel
         self.capabilities = capabilities

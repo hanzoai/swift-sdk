@@ -9,14 +9,14 @@ import Foundation
 
 public struct ByoWorker: Sendable, Codable, ParameterConvertible, Hashable {
 
-    /** Arch/CPUs/Memory are the connecting host's static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/visor/fleet board renders a linked node's arch + cores + RAM like any other unit. */
+    /** Arch/CPUs/Memory are the connecting host's static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/compute/fleet board renders a linked node's arch + cores + RAM like any other unit. */
     public var arch: String?
     /** Capabilities is what this worker offers the org: \"studio.render\" when the node can render, \"engine.serve\" when it serves a model endpoint. A node advertises one only once it can honour it, so an absent list means a node that has dialed in but is not ready to serve any of them yet. */
     public var capabilities: [String]?
     /** CPUModel is the processor as the host names it (\"Apple M3 Max\"), for display. */
     public var cpuModel: String?
     /** CPUs is the host's logical core count. */
-    public var cpus: Int?
+    public var cpus: Int64?
     /** Cuda is the host's CUDA toolkit version. NVIDIA hosts report it. */
     public var cuda: String?
     /** Driver is the host's NVIDIA kernel driver version — distinct from Cuda, and the one that bounds which CUDA versions can run on this box. */
@@ -40,7 +40,7 @@ public struct ByoWorker: Sendable, Codable, ParameterConvertible, Hashable {
     /** Location is always \"on-prem\" — a machine that dialed in has no cloud region, and inventing one would put it somewhere it is not. */
     public var location: String?
     /** Memory is the host's total RAM in BYTES. */
-    public var memory: Int?
+    public var memory: Int64?
     /** Os is the host's operating system: linux, darwin or windows. */
     public var os: String?
     /** Provider is always \"byo\": this machine is the operator's, not one Hanzo provisioned. It exists so a fold into the machines/GPUs pages says which rows are rented and which are the customer's own. */
@@ -52,7 +52,7 @@ public struct ByoWorker: Sendable, Codable, ParameterConvertible, Hashable {
     /** Version is the `hanzo` CLI version running on the node. It is what to check when a worker is missing a field a newer registration reports. */
     public var version: String?
 
-    public init(arch: String? = nil, capabilities: [String]? = nil, cpuModel: String? = nil, cpus: Int? = nil, cuda: String? = nil, driver: String? = nil, engine: EngineAdvertisement? = nil, firstSeen: String? = nil, gpus: [ByoGPU]? = nil, hip: String? = nil, hostname: String? = nil, id: String? = nil, jobQueue: String? = nil, lastHeartbeat: String? = nil, location: String? = nil, memory: Int? = nil, os: String? = nil, provider: String? = nil, rocm: String? = nil, status: String? = nil, version: String? = nil) {
+    public init(arch: String? = nil, capabilities: [String]? = nil, cpuModel: String? = nil, cpus: Int64? = nil, cuda: String? = nil, driver: String? = nil, engine: EngineAdvertisement? = nil, firstSeen: String? = nil, gpus: [ByoGPU]? = nil, hip: String? = nil, hostname: String? = nil, id: String? = nil, jobQueue: String? = nil, lastHeartbeat: String? = nil, location: String? = nil, memory: Int64? = nil, os: String? = nil, provider: String? = nil, rocm: String? = nil, status: String? = nil, version: String? = nil) {
         self.arch = arch
         self.capabilities = capabilities
         self.cpuModel = cpuModel

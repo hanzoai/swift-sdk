@@ -11,7 +11,7 @@ public struct ApprovePairingIn: Sendable, Codable, ParameterConvertible, Hashabl
 
     /** Channel is the transport the request came in on: discord, slack, teams, telegram or whatsapp. */
     public var channel: String?
-    /** Code is the pairing code from GET /v1/channels/pairing. It is a capability: holding it is what authorises the approval, alongside org admin. */
+    /** Code is the pairing code from GET /v1/channel/pairing. It is a capability: holding it is what authorises the approval, alongside org admin. */
     public var code: String?
 
     public init(channel: String? = nil, code: String? = nil) {
