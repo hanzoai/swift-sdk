@@ -11,7 +11,7 @@ public struct CreateServerReq: Sendable, Codable, ParameterConvertible, Hashable
 
     /** AuthHeader is the request header the credential is injected into, e.g. \"Authorization\". Empty means the server needs no credential. */
     public var authHeader: String?
-    /** Listing enables a CATALOG entry instead — the id from GET /v1/tools/catalog. The endpoint is the listing's own streamable-http remote, so a listing that only ships a stdio package is refused: there is nothing to reach yet. */
+    /** Listing enables a CATALOG entry instead — the id from GET /v1/tool/catalog. The endpoint is the listing's own streamable-http remote, so a listing that only ships a stdio package is refused: there is nothing to reach yet. */
     public var listing: String?
     /** Name labels the server for the org. Required with URL; with Listing it defaults to the listing's own title. */
     public var name: String?

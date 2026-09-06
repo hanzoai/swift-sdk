@@ -9,15 +9,19 @@ import Foundation
 
 public struct MachineView: Sendable, Codable, ParameterConvertible, Hashable {
 
+    /** Agent is the cloud Agent this machine runs, lifted out of the binding so a list reads without following one. Empty means nothing is bound — for a kind=bot machine that means it costs money and answers nothing. */
+    public var agent: String?
+    /** Binding is the record joining this machine to that agent, carrying vm's own reconciled status and its reason. Absent means no runtime is bound, which is also what a stopped bot looks like: stopping unbinds and leaves the machine running. */
+    public var binding: AgentBinding?
     /** CreatedTime is when the machine came into being: the provider's own creation timestamp for a Visor machine, passed through in whatever form it states it, and for a BYO machine the RFC 3339 moment it first dialed in. */
     public var createdTime: String?
     /** GPU names the accelerators this machine holds (\"H100\", or \"2× NVIDIA GB10\" for a BYO machine reporting a matched pair). Empty means the machine is not a GPU machine — the size slug does not parse as one, or nvidia-smi found nothing. */
     public var gpu: String?
-    /** ID addresses this machine on the /v1/visor/machines/:id routes: the org-scoped NAME Visor keys a machine by, falling back to the provider id for a machine that has no name. A BYO machine's is the id it dialed in under. */
+    /** ID addresses this machine on the /v1/compute/machines/:id routes: the org-scoped NAME Visor keys a machine by, falling back to the provider id for a machine that has no name. A BYO machine's is the id it dialed in under. */
     public var id: String?
     /** Image is the OS image the machine booted from, as the provider names it. */
     public var image: String?
-    /** Mem is system RAM rendered for a human (\"8 GB\"), not a number to compute with. Empty when the provider's figure is ambiguous, or when the only figure available is a GPU slug's gb — that is VRAM, and reporting it as system RAM would be a fabrication. A BYO machine's RAM is on /v1/visor/fleet/workers. */
+    /** Mem is system RAM rendered for a human (\"8 GB\"), not a number to compute with. Empty when the provider's figure is ambiguous, or when the only figure available is a GPU slug's gb — that is VRAM, and reporting it as system RAM would be a fabrication. A BYO machine's RAM is on /v1/compute/fleet/workers. */
     public var mem: String?
     /** Name is the label to show a human — Visor's displayName, or the machine name when it carries none. A BYO machine's is its hostname. It is not an address: ID is what the routes take. */
     public var name: String?
@@ -35,10 +39,12 @@ public struct MachineView: Sendable, Codable, ParameterConvertible, Hashable {
     public var status: String?
     /** Type is the provider SIZE SLUG the machine runs at (\"s-2vcpu-4gb\", \"gpu-h100x8-640gb\") — the value a launch asks for, and what Vcpu/Mem/GPU are read out of when the provider states them no other way. \"byo-gpu\" for a dialed-in machine, which was never bought from a size catalog. */
     public var type: String?
-    /** Vcpu is logical cores — the provider's own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \"s-4vcpu-8gb\"). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/visor/fleet/workers. */
-    public var vcpu: Int?
+    /** Vcpu is logical cores — the provider's own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \"s-4vcpu-8gb\"). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/compute/fleet/workers. */
+    public var vcpu: Int64?
 
-    public init(createdTime: String? = nil, gpu: String? = nil, id: String? = nil, image: String? = nil, mem: String? = nil, name: String? = nil, os: String? = nil, privateIp: String? = nil, provider: String? = nil, publicIp: String? = nil, region: String? = nil, status: String? = nil, type: String? = nil, vcpu: Int? = nil) {
+    public init(agent: String? = nil, binding: AgentBinding? = nil, createdTime: String? = nil, gpu: String? = nil, id: String? = nil, image: String? = nil, mem: String? = nil, name: String? = nil, os: String? = nil, privateIp: String? = nil, provider: String? = nil, publicIp: String? = nil, region: String? = nil, status: String? = nil, type: String? = nil, vcpu: Int64? = nil) {
+        self.agent = agent
+        self.binding = binding
         self.createdTime = createdTime
         self.gpu = gpu
         self.id = id
@@ -56,6 +62,8 @@ public struct MachineView: Sendable, Codable, ParameterConvertible, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case agent
+        case binding
         case createdTime
         case gpu
         case id
@@ -76,6 +84,8 @@ public struct MachineView: Sendable, Codable, ParameterConvertible, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(agent, forKey: .agent)
+        try container.encodeIfPresent(binding, forKey: .binding)
         try container.encodeIfPresent(createdTime, forKey: .createdTime)
         try container.encodeIfPresent(gpu, forKey: .gpu)
         try container.encodeIfPresent(id, forKey: .id)

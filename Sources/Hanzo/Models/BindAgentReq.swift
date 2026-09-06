@@ -9,7 +9,7 @@ import Foundation
 
 public struct BindAgentReq: Sendable, Codable, ParameterConvertible, Hashable {
 
-    /** AgentName is the cloud Agent (/v1/agents) the machine will run. Required. */
+    /** AgentName is the cloud Agent (/v1/agent) the machine will run. Required. */
     public var agentName: String?
     /** BotVersion pins the @hanzo/bot runtime version; empty takes the default. */
     public var botVersion: String?

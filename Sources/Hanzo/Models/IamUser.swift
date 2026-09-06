@@ -47,6 +47,7 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
     public var createdTime: String?
     public var currency: String?
     public var custom: String?
+    public var custom10: String?
     public var custom2: String?
     public var custom3: String?
     public var custom4: String?
@@ -55,7 +56,6 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
     public var custom7: String?
     public var custom8: String?
     public var custom9: String?
-    public var custom10: String?
     public var dailymotion: String?
     public var deezer: String?
     public var deleted: Bool?
@@ -106,7 +106,7 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
     public var isOnline: Bool?
     public var isVerified: Bool?
     public var kakao: String?
-    public var karma: Int?
+    public var karma: Int64?
     public var kwai: String?
     public var language: String?
     public var lark: String?
@@ -161,16 +161,16 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
     public var preferredMfaType: String?
     public var properties: [String: String]?
     public var qq: String?
-    public var ranking: Int?
+    public var ranking: Int64?
     public var realName: String?
     public var recoveryCodes: [String]?
     public var region: String?
     public var registerSource: String?
     public var registerType: String?
     public var salesforce: String?
-    public var score: Int?
+    public var score: Int64?
     public var shopify: String?
-    public var signinWrongTimes: Int?
+    public var signinWrongTimes: Int64?
     public var signupApplication: String?
     public var slack: String?
     public var soundcloud: String?
@@ -205,7 +205,7 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
     public var yandex: String?
     public var zoom: String?
 
-    public init(accessKey: String? = nil, accessSecret: String? = nil, accessSecretHash: String? = nil, accessToken: String? = nil, address: [String]? = nil, addresses: [IamAddress]? = nil, adfs: String? = nil, affiliation: String? = nil, alipay: String? = nil, amazon: String? = nil, apple: String? = nil, applicationScopes: [IamConsentRecord]? = nil, auth0: String? = nil, avatar: String? = nil, avatarType: String? = nil, azuread: String? = nil, azureadb2c: String? = nil, baidu: String? = nil, balance: Double? = nil, balanceCredit: Double? = nil, balanceCurrency: String? = nil, battlenet: String? = nil, bilibili: String? = nil, bio: String? = nil, birthday: String? = nil, bitbucket: String? = nil, box: String? = nil, cart: [IamCartItem]? = nil, cloudfoundry: String? = nil, countryCode: String? = nil, createdAt: Date? = nil, createdIp: String? = nil, createdTime: String? = nil, currency: String? = nil, custom: String? = nil, custom2: String? = nil, custom3: String? = nil, custom4: String? = nil, custom5: String? = nil, custom6: String? = nil, custom7: String? = nil, custom8: String? = nil, custom9: String? = nil, custom10: String? = nil, dailymotion: String? = nil, deezer: String? = nil, deleted: Bool? = nil, deletedTime: String? = nil, digitalocean: String? = nil, dingtalk: String? = nil, discord: String? = nil, displayName: String? = nil, douyin: String? = nil, dropbox: String? = nil, education: String? = nil, email: String? = nil, emailVerified: Bool? = nil, eveonline: String? = nil, externalId: String? = nil, faceIds: [IamFaceId]? = nil, facebook: String? = nil, firstName: String? = nil, fitbit: String? = nil, gender: String? = nil, gitea: String? = nil, gitee: String? = nil, github: String? = nil, gitlab: String? = nil, google: String? = nil, hash: String? = nil, heroku: String? = nil, homepage: String? = nil, iam: String? = nil, id: String? = nil, idCard: String? = nil, idCardType: String? = nil, influxcloud: String? = nil, infoflow: String? = nil, instagram: String? = nil, intercom: String? = nil, invitation: String? = nil, invitationCode: String? = nil, ipWhitelist: String? = nil, isAdmin: Bool? = nil, isDefaultAvatar: Bool? = nil, isDeleted: Bool? = nil, isForbidden: Bool? = nil, isOnline: Bool? = nil, isVerified: Bool? = nil, kakao: String? = nil, karma: Int? = nil, kwai: String? = nil, language: String? = nil, lark: String? = nil, lastChangePasswordTime: String? = nil, lastName: String? = nil, lastSigninIp: String? = nil, lastSigninTime: String? = nil, lastSigninWrongTime: String? = nil, lastfm: String? = nil, ldap: String? = nil, line: String? = nil, linkedin: String? = nil, location: String? = nil, mailru: String? = nil, managedAccounts: [IamManagedAccount]? = nil, meetup: String? = nil, mfaAccounts: [IamMfaAccount]? = nil, mfaEmailEnabled: Bool? = nil, mfaItems: [IamMfaItem]? = nil, mfaPhoneEnabled: Bool? = nil, mfaPushEnabled: Bool? = nil, mfaPushProvider: String? = nil, mfaPushReceiver: String? = nil, mfaRadiusEnabled: Bool? = nil, mfaRadiusProvider: String? = nil, mfaRadiusUsername: String? = nil, mfaRememberDeadline: String? = nil, mfaRememberDigest: String? = nil, microsoftonline: String? = nil, multiFactorAuths: [IamMfaProps]? = nil, name: String? = nil, naver: String? = nil, needUpdatePassword: Bool? = nil, nextcloud: String? = nil, okta: String? = nil, onedrive: String? = nil, originalRefreshToken: String? = nil, originalToken: String? = nil, oura: String? = nil, owner: String? = nil, passwordHash: String? = nil, passwordSalt: String? = nil, passwordType: String? = nil, patreon: String? = nil, paypal: String? = nil, permanentAvatar: String? = nil, phone: String? = nil, preHash: String? = nil, preferredMfaType: String? = nil, properties: [String: String]? = nil, qq: String? = nil, ranking: Int? = nil, realName: String? = nil, recoveryCodes: [String]? = nil, region: String? = nil, registerSource: String? = nil, registerType: String? = nil, salesforce: String? = nil, score: Int? = nil, shopify: String? = nil, signinWrongTimes: Int? = nil, signupApplication: String? = nil, slack: String? = nil, soundcloud: String? = nil, spotify: String? = nil, steam: String? = nil, strava: String? = nil, stripe: String? = nil, tag: String? = nil, telegram: String? = nil, tiktok: String? = nil, title: String? = nil, totpSecret: String? = nil, tumblr: String? = nil, twitch: String? = nil, twitter: String? = nil, type: String? = nil, typetalk: String? = nil, uber: String? = nil, updatedAt: Date? = nil, updatedTime: String? = nil, verificationCode: String? = nil, vk: String? = nil, webauthnCredentials: [JSONValue]? = nil, wechat: String? = nil, wecom: String? = nil, weibo: String? = nil, wepay: String? = nil, xero: String? = nil, yahoo: String? = nil, yammer: String? = nil, yandex: String? = nil, zoom: String? = nil) {
+    public init(accessKey: String? = nil, accessSecret: String? = nil, accessSecretHash: String? = nil, accessToken: String? = nil, address: [String]? = nil, addresses: [IamAddress]? = nil, adfs: String? = nil, affiliation: String? = nil, alipay: String? = nil, amazon: String? = nil, apple: String? = nil, applicationScopes: [IamConsentRecord]? = nil, auth0: String? = nil, avatar: String? = nil, avatarType: String? = nil, azuread: String? = nil, azureadb2c: String? = nil, baidu: String? = nil, balance: Double? = nil, balanceCredit: Double? = nil, balanceCurrency: String? = nil, battlenet: String? = nil, bilibili: String? = nil, bio: String? = nil, birthday: String? = nil, bitbucket: String? = nil, box: String? = nil, cart: [IamCartItem]? = nil, cloudfoundry: String? = nil, countryCode: String? = nil, createdAt: Date? = nil, createdIp: String? = nil, createdTime: String? = nil, currency: String? = nil, custom: String? = nil, custom10: String? = nil, custom2: String? = nil, custom3: String? = nil, custom4: String? = nil, custom5: String? = nil, custom6: String? = nil, custom7: String? = nil, custom8: String? = nil, custom9: String? = nil, dailymotion: String? = nil, deezer: String? = nil, deleted: Bool? = nil, deletedTime: String? = nil, digitalocean: String? = nil, dingtalk: String? = nil, discord: String? = nil, displayName: String? = nil, douyin: String? = nil, dropbox: String? = nil, education: String? = nil, email: String? = nil, emailVerified: Bool? = nil, eveonline: String? = nil, externalId: String? = nil, faceIds: [IamFaceId]? = nil, facebook: String? = nil, firstName: String? = nil, fitbit: String? = nil, gender: String? = nil, gitea: String? = nil, gitee: String? = nil, github: String? = nil, gitlab: String? = nil, google: String? = nil, hash: String? = nil, heroku: String? = nil, homepage: String? = nil, iam: String? = nil, id: String? = nil, idCard: String? = nil, idCardType: String? = nil, influxcloud: String? = nil, infoflow: String? = nil, instagram: String? = nil, intercom: String? = nil, invitation: String? = nil, invitationCode: String? = nil, ipWhitelist: String? = nil, isAdmin: Bool? = nil, isDefaultAvatar: Bool? = nil, isDeleted: Bool? = nil, isForbidden: Bool? = nil, isOnline: Bool? = nil, isVerified: Bool? = nil, kakao: String? = nil, karma: Int64? = nil, kwai: String? = nil, language: String? = nil, lark: String? = nil, lastChangePasswordTime: String? = nil, lastName: String? = nil, lastSigninIp: String? = nil, lastSigninTime: String? = nil, lastSigninWrongTime: String? = nil, lastfm: String? = nil, ldap: String? = nil, line: String? = nil, linkedin: String? = nil, location: String? = nil, mailru: String? = nil, managedAccounts: [IamManagedAccount]? = nil, meetup: String? = nil, mfaAccounts: [IamMfaAccount]? = nil, mfaEmailEnabled: Bool? = nil, mfaItems: [IamMfaItem]? = nil, mfaPhoneEnabled: Bool? = nil, mfaPushEnabled: Bool? = nil, mfaPushProvider: String? = nil, mfaPushReceiver: String? = nil, mfaRadiusEnabled: Bool? = nil, mfaRadiusProvider: String? = nil, mfaRadiusUsername: String? = nil, mfaRememberDeadline: String? = nil, mfaRememberDigest: String? = nil, microsoftonline: String? = nil, multiFactorAuths: [IamMfaProps]? = nil, name: String? = nil, naver: String? = nil, needUpdatePassword: Bool? = nil, nextcloud: String? = nil, okta: String? = nil, onedrive: String? = nil, originalRefreshToken: String? = nil, originalToken: String? = nil, oura: String? = nil, owner: String? = nil, passwordHash: String? = nil, passwordSalt: String? = nil, passwordType: String? = nil, patreon: String? = nil, paypal: String? = nil, permanentAvatar: String? = nil, phone: String? = nil, preHash: String? = nil, preferredMfaType: String? = nil, properties: [String: String]? = nil, qq: String? = nil, ranking: Int64? = nil, realName: String? = nil, recoveryCodes: [String]? = nil, region: String? = nil, registerSource: String? = nil, registerType: String? = nil, salesforce: String? = nil, score: Int64? = nil, shopify: String? = nil, signinWrongTimes: Int64? = nil, signupApplication: String? = nil, slack: String? = nil, soundcloud: String? = nil, spotify: String? = nil, steam: String? = nil, strava: String? = nil, stripe: String? = nil, tag: String? = nil, telegram: String? = nil, tiktok: String? = nil, title: String? = nil, totpSecret: String? = nil, tumblr: String? = nil, twitch: String? = nil, twitter: String? = nil, type: String? = nil, typetalk: String? = nil, uber: String? = nil, updatedAt: Date? = nil, updatedTime: String? = nil, verificationCode: String? = nil, vk: String? = nil, webauthnCredentials: [JSONValue]? = nil, wechat: String? = nil, wecom: String? = nil, weibo: String? = nil, wepay: String? = nil, xero: String? = nil, yahoo: String? = nil, yammer: String? = nil, yandex: String? = nil, zoom: String? = nil) {
         self.accessKey = accessKey
         self.accessSecret = accessSecret
         self.accessSecretHash = accessSecretHash
@@ -241,6 +241,7 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
         self.createdTime = createdTime
         self.currency = currency
         self.custom = custom
+        self.custom10 = custom10
         self.custom2 = custom2
         self.custom3 = custom3
         self.custom4 = custom4
@@ -249,7 +250,6 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
         self.custom7 = custom7
         self.custom8 = custom8
         self.custom9 = custom9
-        self.custom10 = custom10
         self.dailymotion = dailymotion
         self.deezer = deezer
         self.deleted = deleted
@@ -428,6 +428,7 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
         case createdTime
         case currency
         case custom
+        case custom10
         case custom2
         case custom3
         case custom4
@@ -436,7 +437,6 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
         case custom7
         case custom8
         case custom9
-        case custom10
         case dailymotion
         case deezer
         case deleted
@@ -618,6 +618,7 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
         try container.encodeIfPresent(createdTime, forKey: .createdTime)
         try container.encodeIfPresent(currency, forKey: .currency)
         try container.encodeIfPresent(custom, forKey: .custom)
+        try container.encodeIfPresent(custom10, forKey: .custom10)
         try container.encodeIfPresent(custom2, forKey: .custom2)
         try container.encodeIfPresent(custom3, forKey: .custom3)
         try container.encodeIfPresent(custom4, forKey: .custom4)
@@ -626,7 +627,6 @@ public struct IamUser: Sendable, Codable, ParameterConvertible, Hashable {
         try container.encodeIfPresent(custom7, forKey: .custom7)
         try container.encodeIfPresent(custom8, forKey: .custom8)
         try container.encodeIfPresent(custom9, forKey: .custom9)
-        try container.encodeIfPresent(custom10, forKey: .custom10)
         try container.encodeIfPresent(dailymotion, forKey: .dailymotion)
         try container.encodeIfPresent(deezer, forKey: .deezer)
         try container.encodeIfPresent(deleted, forKey: .deleted)

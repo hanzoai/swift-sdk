@@ -10,6 +10,45 @@ import Foundation
 open class BotAPI {
 
     /**
+     Returns the caller org's bots as space members — each with the member account uuid and the Person reference the roster addresses it by.
+     
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: BotRoster
+     */
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func getBotMembers(apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) async throws(ErrorResponse) -> BotRoster {
+        return try await getBotMembersWithRequestBuilder(apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Returns the caller org's bots as space members — each with the member account uuid and the Person reference the roster addresses it by.
+     - GET /v1/bot/members
+     - Returns the caller org's bots as space members — each with the member account uuid and the Person reference the roster addresses it by.  A deployment that runs no team subsystem has no spaces and therefore no roster, which is an empty list rather than an error: ErrNoPeer is the ONE error that means \"this deployment does not run that app\", and every other failure is an outage and says so.
+     - Bearer Token:
+       - type: http
+       - name: bearer
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<BotRoster> 
+     */
+    open class func getBotMembersWithRequestBuilder(apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) -> RequestBuilder<BotRoster> {
+        let localVariablePath = "/v1/bot/members"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<BotRoster>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      List returns the caller org's live bot runs, read from the bot runtime and projected into the console contract with each run's live session URL derived here.
      
      - parameter apiConfiguration: The configuration for the http request.
@@ -46,6 +85,45 @@ open class BotAPI {
         let localVariableRequestBuilder: RequestBuilder<BotRuns>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Re-projects the caller org's bots as members into every space of the org and removes the ones whose agent is gone.
+     
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: BotSync
+     */
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    open class func postBotMembersSync(apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) async throws(ErrorResponse) -> BotSync {
+        return try await postBotMembersSyncWithRequestBuilder(apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Re-projects the caller org's bots as members into every space of the org and removes the ones whose agent is gone.
+     - POST /v1/bot/members/sync
+     - Re-projects the caller org's bots as members into every space of the org and removes the ones whose agent is gone. Idempotent, and admin only — the admin bit rides the caller to team, which is what decides it.
+     - Bearer Token:
+       - type: http
+       - name: bearer
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<BotSync> 
+     */
+    open class func postBotMembersSyncWithRequestBuilder(apiConfiguration: HanzoAPIConfiguration = HanzoAPIConfiguration.shared) -> RequestBuilder<BotSync> {
+        let localVariablePath = "/v1/bot/members/sync"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<BotSync>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true, apiConfiguration: apiConfiguration)
     }
 
     /**

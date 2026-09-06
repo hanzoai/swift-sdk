@@ -9,15 +9,15 @@ import Foundation
 
 public struct BotMember: Sendable, Codable, ParameterConvertible, Hashable {
 
-    /** Active is whether the agent projects as a LIVE space member, derived from its registry status: empty, \"active\" and \"ready\" are live, anything else (archived/retired) is not. An inactive bot drops out of the Team list while its past authorship survives. */
+    /** Active is whether the agent projects as a LIVE space member, derived from its registry status: empty, \"active\" and \"ready\" are live, anything else (archived/retired) is not. An inactive bot drops out of the roster while its past authorship survives. */
     public var active: Bool?
-    /** the agent id */
+    /** ID is the agent id. */
     public var id: String?
-    /** display name */
+    /** Name is the display name. */
     public var name: String?
-    /** the projected Person _id */
+    /** PersonRef is the projected Person _id. */
     public var personRef: String?
-    /** derived member account uuid (personUuid) */
+    /** UserID is the derived member account uuid (personUuid). */
     public var userId: String?
 
     public init(active: Bool? = nil, id: String? = nil, name: String? = nil, personRef: String? = nil, userId: String? = nil) {

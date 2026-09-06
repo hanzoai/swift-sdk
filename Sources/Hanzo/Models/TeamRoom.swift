@@ -19,7 +19,7 @@ public struct TeamRoom: Sendable, Codable, ParameterConvertible, Hashable {
     public var id: String?
     /** Life is the room's lifecycle INTENT — \"standing\" or \"bound\" (HIP-0523 §2). Absent on the document it reads \"standing\": a room nobody classified is one that persists. */
     public var life: String?
-    /** Members are the account uuids in the room, agents included: an agent projects as a space member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in. */
+    /** Members are the account uuids in the room, agents included: an agent projects as a space member under a uuid derived from its id, so a caller comparing this against GET /v1/bot/members learns which rooms an agent is in. */
     public var members: [String]?
     /** Name is what a person sees in a sidebar. A direct message carries none, so this is empty for one — the members are its name. */
     public var name: String?

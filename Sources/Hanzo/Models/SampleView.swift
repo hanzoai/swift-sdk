@@ -12,37 +12,37 @@ public struct SampleView: Sendable, Codable, ParameterConvertible, Hashable {
     /** At is when the reading was MEASURED, RFC 3339 in UTC — the x-axis a chart plots against. The series is returned oldest first, so it only increases. */
     public var at: String?
     /** CostCents is what this unit resold for over the hour the reading falls in, in whole US cents. 0 means UNPRICED, not free: the operator's own machines — a linked run-target, a dialed-in BYO worker — are metered for utilization and never resold, so only a priced source ever fills it. */
-    public var costCents: Int?
+    public var costCents: Int64?
     /** CPUs is logical cores. The static capability rides every row on purpose: a chart can size load against cores without joining a registry whose row may since have been rewritten or the unit deregistered. */
-    public var cpus: Int?
+    public var cpus: Int64?
     /** GPUModel names the representative accelerator (\"GB10\"); GPUs carries how many. */
     public var gpuModel: String?
     /** GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy. Anything a reporter sends outside 0..1 is clamped into it on write. */
     public var gpuUtil: Double?
     /** GPUs is how many accelerators the reading covers. */
-    public var gpus: Int?
+    public var gpus: Int64?
     /** Host is the hostname the unit reported at the time of the reading. */
     public var host: String?
     /** Kind is what the measured unit is: laptop, cloud, gpu, cluster, machine or worker. */
     public var kind: String?
     /** Load1 is the 1-minute load average — runnable processes, not a percentage. */
     public var load1: Double?
-    /** Load5 is the 5-minute load average, the same units as Load1. */
-    public var load5: Double?
     /** Load15 is the 15-minute load average, the same units as Load1. */
     public var load15: Double?
+    /** Load5 is the 5-minute load average, the same units as Load1. */
+    public var load5: Double?
     /** MemFree is host memory available, in BYTES, as reported rather than derived. */
-    public var memFree: Int?
+    public var memFree: Int64?
     /** MemUsed is host memory in use, in BYTES. */
-    public var memUsed: Int?
+    public var memUsed: Int64?
     /** Memory is total system RAM in BYTES at the time of the reading. */
-    public var memory: Int?
+    public var memory: Int64?
     /** Source is the plane that reported the reading: \"agent\", \"byo\" or \"visor\" — the same vocabulary the board's rows carry, and what ?source= narrows on. */
     public var source: String?
     /** Unit is the source's own id for the measured unit. With Source it is the key the chart groups by, and the key the board joins a unit's latest reading on. */
     public var unit: String?
 
-    public init(at: String? = nil, costCents: Int? = nil, cpus: Int? = nil, gpuModel: String? = nil, gpuUtil: Double? = nil, gpus: Int? = nil, host: String? = nil, kind: String? = nil, load1: Double? = nil, load5: Double? = nil, load15: Double? = nil, memFree: Int? = nil, memUsed: Int? = nil, memory: Int? = nil, source: String? = nil, unit: String? = nil) {
+    public init(at: String? = nil, costCents: Int64? = nil, cpus: Int64? = nil, gpuModel: String? = nil, gpuUtil: Double? = nil, gpus: Int64? = nil, host: String? = nil, kind: String? = nil, load1: Double? = nil, load15: Double? = nil, load5: Double? = nil, memFree: Int64? = nil, memUsed: Int64? = nil, memory: Int64? = nil, source: String? = nil, unit: String? = nil) {
         self.at = at
         self.costCents = costCents
         self.cpus = cpus
@@ -52,8 +52,8 @@ public struct SampleView: Sendable, Codable, ParameterConvertible, Hashable {
         self.host = host
         self.kind = kind
         self.load1 = load1
-        self.load5 = load5
         self.load15 = load15
+        self.load5 = load5
         self.memFree = memFree
         self.memUsed = memUsed
         self.memory = memory
@@ -71,8 +71,8 @@ public struct SampleView: Sendable, Codable, ParameterConvertible, Hashable {
         case host
         case kind
         case load1
-        case load5
         case load15
+        case load5
         case memFree
         case memUsed
         case memory
@@ -93,8 +93,8 @@ public struct SampleView: Sendable, Codable, ParameterConvertible, Hashable {
         try container.encodeIfPresent(host, forKey: .host)
         try container.encodeIfPresent(kind, forKey: .kind)
         try container.encodeIfPresent(load1, forKey: .load1)
-        try container.encodeIfPresent(load5, forKey: .load5)
         try container.encodeIfPresent(load15, forKey: .load15)
+        try container.encodeIfPresent(load5, forKey: .load5)
         try container.encodeIfPresent(memFree, forKey: .memFree)
         try container.encodeIfPresent(memUsed, forKey: .memUsed)
         try container.encodeIfPresent(memory, forKey: .memory)

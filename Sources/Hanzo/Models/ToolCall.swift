@@ -11,7 +11,7 @@ public struct ToolCall: Sendable, Codable, ParameterConvertible, Hashable {
 
     /** Arguments is the tool's own input object, passed through verbatim to whichever source owns it. */
     public var arguments: [String: JSONValue]?
-    /** Name is the tool to run, exactly as GET /v1/tools reports it. */
+    /** Name is the tool to run, exactly as GET /v1/tool reports it. */
     public var name: String?
 
     public init(arguments: [String: JSONValue]? = nil, name: String? = nil) {

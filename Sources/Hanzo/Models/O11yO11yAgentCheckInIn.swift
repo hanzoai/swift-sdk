@@ -10,23 +10,23 @@ import Foundation
 public struct O11yO11yAgentCheckInIn: Sendable, Codable, ParameterConvertible, Hashable {
 
     public var accountId: String?
-    public var cloudAccountId: String?
     public var cloudIntegrationId: JSONValue?
+    public var cloudAccountId: String?
     public var data: [String: JSONValue]?
     public var providerAccountId: String?
 
-    public init(accountId: String? = nil, cloudAccountId: String? = nil, cloudIntegrationId: JSONValue? = nil, data: [String: JSONValue]? = nil, providerAccountId: String? = nil) {
+    public init(accountId: String? = nil, cloudIntegrationId: JSONValue? = nil, cloudAccountId: String? = nil, data: [String: JSONValue]? = nil, providerAccountId: String? = nil) {
         self.accountId = accountId
-        self.cloudAccountId = cloudAccountId
         self.cloudIntegrationId = cloudIntegrationId
+        self.cloudAccountId = cloudAccountId
         self.data = data
         self.providerAccountId = providerAccountId
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case accountId = "account_id"
-        case cloudAccountId = "cloud_account_id"
         case cloudIntegrationId
+        case cloudAccountId = "cloud_account_id"
         case data
         case providerAccountId
     }
@@ -36,8 +36,8 @@ public struct O11yO11yAgentCheckInIn: Sendable, Codable, ParameterConvertible, H
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(accountId, forKey: .accountId)
-        try container.encodeIfPresent(cloudAccountId, forKey: .cloudAccountId)
         try container.encodeIfPresent(cloudIntegrationId, forKey: .cloudIntegrationId)
+        try container.encodeIfPresent(cloudAccountId, forKey: .cloudAccountId)
         try container.encodeIfPresent(data, forKey: .data)
         try container.encodeIfPresent(providerAccountId, forKey: .providerAccountId)
     }
