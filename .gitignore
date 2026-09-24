@@ -1,3 +1,8 @@
 target/
 .build/
 .swiftpm/
+
+# Local symlinks to LLM.md
+CLAUDE.md
+AGENTS.md
+GEMINI.md
