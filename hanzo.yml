@@ -2,7 +2,7 @@
 #
 # No `images:` and no `deploy:`: this is a client library. SwiftPM resolves it
 # from a git TAG, so what CI owes is a gate, not an artifact — and no `version:`
-# either: a tag is a human's decision.
+# either way the tag is the version, minted by the client lane.
 
 test:
   - name: build
@@ -44,4 +44,12 @@ test:
 # `.spec-lock` beside the code, and — only after `test:` above has passed over
 # exactly those bytes — commits.
 client:
+  # WHICH cloud, said out loud: hanzoai/ci defaults to hanzoai/cloud, which now
+  # serves the OSS core and carries no openapi.yaml. The product line is what this
+  # client projects.
+  spec:
+    repo: hanzo-inc/cloud
   generate: ./scripts/generate.sh
+  # SwiftPM resolves from a git tag and a Package.swift names no version, so the
+  # tag IS the version.
+  version: tag
