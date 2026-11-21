@@ -1,5 +1,7 @@
 # Hanzo Cloud — Swift SDK
 
+[![Open in Hanzo](https://hanzo.app/badges/open-in-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/swift-sdk&ref=main&action=open) [![Edit with Hanzo](https://hanzo.app/badges/edit-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/swift-sdk&ref=main&action=edit) [![Deploy with Hanzo](https://hanzo.app/badges/deploy-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/swift-sdk&ref=main&action=deploy)
+
 Swift client for the [Hanzo Cloud](https://hanzo.ai) API, generated from the
 API's own OpenAPI document. Async/await, no external dependencies.
 
